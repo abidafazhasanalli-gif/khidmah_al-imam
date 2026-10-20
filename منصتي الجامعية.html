@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05332f">
+<title>منصتي الجامعية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3f1;--surface:#fff;--ink:#10302e;--muted:#4f6663;--line:#cfdcd8;--brand:#0e4a45;--brand-ink:#fff;--accent:#a8761f;--focus:#0b6bcb;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1b1a;--surface:#112826;--ink:#e6f0ed;--muted:#9bb3ae;--line:#25423f;--brand:#5fc1b3;--brand-ink:#06201d;--accent:#e0b25c;--focus:#7db8ff;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1b1a;--surface:#112826;--ink:#e6f0ed;--muted:#9bb3ae;--line:#25423f;--brand:#5fc1b3;--brand-ink:#06201d;--accent:#e0b25c;--focus:#7db8ff;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;line-height:1.8;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 56px}
+header{padding:44px 0 28px}
+.date{color:var(--muted);font-size:15px;margin:0}
+h1{font-family:"Reem Kufi","Tajawal",sans-serif;font-weight:700;font-size:clamp(34px,6vw,56px);line-height:1.3;margin:6px 0 4px;color:var(--brand)}
+.sub{margin:0;color:var(--muted);max-width:52ch}
+.search{margin-top:24px;display:flex;gap:10px}
+.search input{flex:1;font:inherit;padding:12px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.search button{font:inherit;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:0;padding:0;list-style:none}
+.grid li{display:contents}
+.card{display:flex;flex-direction:column;gap:6px;height:100%;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--surface);text-decoration:none;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--brand);transform:translateY(-2px)}
+.card b{font-size:19px}
+.card span{color:var(--muted);font-size:15px}
+.card.main{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);grid-column:span 2}
+.card.main span{color:inherit;opacity:.85}
+.card.main b{font-family:"Reem Kufi","Tajawal",sans-serif;font-size:26px}
+h2{font-family:"Reem Kufi","Tajawal",sans-serif;font-size:26px;margin:44px 0 14px}
+.empty{color:var(--muted);display:none}
+.tasks{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+.add{display:grid;grid-template-columns:1fr 160px auto;gap:10px}
+.add input,.add button{font:inherit;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.add button{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);cursor:pointer;font-weight:700}
+#list{list-style:none;margin:16px 0 0;padding:0}
+#list li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+#list li.done .t{text-decoration:line-through;color:var(--muted)}
+.t{flex:1}
+.when{font-size:14px;color:var(--accent);white-space:nowrap;font-weight:500}
+.x{border:0;background:none;color:var(--muted);cursor:pointer;font-size:20px;padding:4px 8px}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--brand)}
+footer{margin-top:40px;color:var(--muted);font-size:14px}
+@media (max-width:600px){.card.main{grid-column:span 1}.add{grid-template-columns:1fr}.search button{padding:10px 14px}}
+.clockbar{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.clock{font-family:"Reem Kufi","Tajawal",sans-serif;font-size:clamp(40px,9vw,72px);line-height:1;font-variant-numeric:tabular-nums;direction:ltr}
+.clockbar .date{line-height:1.6}
+.nextp{margin:0 0 10px;color:var(--accent);font-weight:700}
+.pray{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:10px}
+.pray div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
+.pray div.next{border:2px solid var(--accent)}
+.pray b{display:block;font-weight:500;color:var(--muted);font-size:14px}
+.pray span{font-size:20px;font-weight:700;direction:ltr;display:inline-block}
+.add select,.gr input,.gr select,.tasks textarea,.gbtn{font:inherit;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.add.a4{grid-template-columns:130px 130px 1fr auto}
+.lst{list-style:none;margin:16px 0 0;padding:0}
+.lst li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.lst li.today .t{font-weight:700}
+.gr{display:grid;grid-template-columns:110px 1fr auto;gap:10px;margin-bottom:8px}
+.gbtn{cursor:pointer}
+.gpa-out{font-family:"Reem Kufi","Tajawal",sans-serif;font-size:26px;color:var(--brand);margin:12px 0 0}
+.tasks textarea{width:100%;resize:vertical}
+@media (max-width:600px){.add.a4{grid-template-columns:1fr}}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+:root{--bad:#b3261e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#ff9a8f}}
+:root[data-theme="dark"]{--bad:#ff9a8f}
+.nav{display:flex;gap:8px;overflow-x:auto;margin-top:16px;padding-bottom:4px}
+.nav a{white-space:nowrap;padding:6px 14px;border:1px solid var(--line);border-radius:999px;text-decoration:none;background:var(--surface);font-size:15px}
+.nav a:hover{border-color:var(--brand)}
+.up{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.up .f{grid-column:span 2}
+.up input:not([type=checkbox]){font:inherit;width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.chk{display:flex;gap:8px;align-items:center;margin-top:10px}
+.outs{display:grid;grid-template-columns:1fr 1.6fr;gap:16px;align-items:start;margin-top:14px}
+.outs figure{margin:0}
+.outs img{width:100%;border:1px solid var(--line);border-radius:10px;background:#fff;margin-bottom:10px}
+.outs figcaption{font-weight:700;margin-bottom:8px}
+.gbtn:disabled{opacity:.5;cursor:default}
+.pbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+@media (max-width:700px){.outs{grid-template-columns:1fr}.up{grid-template-columns:1fr}.up .f{grid-column:span 1}}
+</style>
+<style>
+:root{--bg:#eff4f1;--surface:#fff;--ink:#0b2724;--muted:#587370;--line:#d8e3df;--brand:#0b5d54;--brand-ink:#fff;--accent:#a97a1f;--gold:#e6c776;--sh:0 1px 2px rgba(5,51,47,.05),0 10px 28px -14px rgba(5,51,47,.22);--rad:20px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#06110f;--surface:#0d1e1b;--ink:#e8f1ee;--muted:#93aea8;--line:#1c3733;--brand:#46cdb8;--brand-ink:#04201c;--accent:#e6c776;--sh:0 10px 28px -16px #000}}
+:root[data-theme="dark"]{--bg:#06110f;--surface:#0d1e1b;--ink:#e8f1ee;--muted:#93aea8;--line:#1c3733;--brand:#46cdb8;--brand-ink:#04201c;--accent:#e6c776;--sh:0 10px 28px -16px #000}
+body{-webkit-tap-highlight-color:transparent;background:radial-gradient(900px 420px at 50% -120px,rgba(11,93,84,.14),transparent 70%),var(--bg);background-repeat:no-repeat}
+::selection{background:var(--gold);color:#05332f}
+button:active{transform:scale(.97)}
+.tn{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.ap{font-family:"Tajawal",sans-serif;font-weight:700;font-size:.4em;margin-inline-start:.4em;color:var(--gold)}
+.hero{position:relative;overflow:hidden;margin-top:18px;padding:26px 28px 22px;border-radius:28px;color:#f3ead2;box-shadow:var(--sh);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84'%3E%3Cg fill='none' stroke='%23e6c776' stroke-opacity='.14'%3E%3Crect x='20' y='20' width='44' height='44'/%3E%3Crect x='20' y='20' width='44' height='44' transform='rotate(45 42 42)'/%3E%3C/g%3E%3C/svg%3E"),radial-gradient(110% 130% at 100% 0,#10806f 0,transparent 55%),linear-gradient(160deg,#07463f,#032a29)}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7}
+.greet{margin:0 0 8px;color:var(--gold);font-weight:700}
+.hero .clock{direction:rtl;color:#fff}
+.hero .date,.hero .sub{color:rgba(243,234,210,.82)}
+.hero .hj{color:var(--gold);font-size:21px;font-weight:700}
+.hero h1{color:#fff;margin-top:14px}
+.hero .search input{background:rgba(255,255,255,.1);border-color:rgba(230,199,118,.3);color:#fff}
+.hero .search input::placeholder{color:rgba(243,234,210,.6)}
+.hero .search button,.hero .nav a{background:rgba(255,255,255,.08);border-color:rgba(230,199,118,.28);color:#f3ead2}
+.hero .nav a:hover,.hero .search button:hover{background:var(--gold);color:#05332f;border-color:var(--gold)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 20px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--sh)}
+.stat b{display:block;font-family:"Reem Kufi","Tajawal",sans-serif;font-size:26px;line-height:1.3;color:var(--brand)}
+.stat span{color:var(--muted);font-size:14px}
+.nextp{display:inline-block;margin:0 0 12px;padding:5px 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh)}
+.pray div{border-radius:16px;box-shadow:var(--sh)}
+.pray span{direction:rtl}
+.pray .tn{font-size:20px}
+.pray .ap{font-size:13px;color:var(--muted)}
+.pray div.next{background:linear-gradient(160deg,#07463f,#032a29);border:1px solid var(--gold);color:#fff}
+.pray div.next b{color:var(--gold)}
+.pray div.next .ap{color:var(--gold)}
+h2{display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:6px;height:1em;border-radius:3px;background:linear-gradient(var(--gold),var(--accent))}
+.card{border-radius:var(--rad);box-shadow:var(--sh)}
+.card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.card.main{background:linear-gradient(160deg,#07463f,#032a29);border-color:transparent;color:#fff}
+.card.main b{color:var(--gold)}
+.tasks{border-radius:var(--rad);box-shadow:var(--sh);padding:22px}
+.add button,.gbtn{transition:filter .15s,transform .1s}
+.add button{background:linear-gradient(160deg,var(--brand),#073f39);color:var(--brand-ink)}
+.gbtn:hover:not(:disabled),.add button:hover{filter:brightness(1.1)}
+input:focus,select:focus,textarea:focus{border-color:var(--brand)}
+.gpa-out{color:var(--accent)}
+footer{margin-top:52px;padding:26px 16px 8px;text-align:center;border-top:1px solid var(--line);line-height:1.9}
+.sig{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px;font-family:"Reem Kufi","Tajawal",sans-serif;font-size:19px;color:var(--ink)}
+.sig .by{padding:4px 16px;border-radius:999px;border:1px solid var(--accent);color:var(--accent)}
+.sig .by b{color:var(--brand);font-weight:700}
+footer p{max-width:70ch;margin:0 auto}
+@media (max-width:600px){.hero{padding:20px 18px;border-radius:22px}.stat{padding:12px}.stat b{font-size:21px}}
+.add.tadd{grid-template-columns:1fr 300px auto}.dtg{display:flex;gap:6px}.dtg select{flex:1;min-width:0;padding:10px 6px}#pmin{width:120px}
+@media (max-width:600px){.add.tadd{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <p class="greet" id="greet"></p>
+  <div class="clockbar"><div class="clock" id="clock"></div><div><p class="date hj" id="date"></p><p class="date" id="gdate"></p><p class="date" id="riy"></p></div></div>
+  <h1>منصتي الجامعية</h1>
+  <p class="sub">خدمات جامعة الإمام محمد بن سعود الإسلامية في مكان واحد، ومعها مهامك ومواعيدك.</p>
+  <div class="search">
+    <input id="q" type="search" placeholder="ابحث عن خدمة" aria-label="ابحث عن خدمة">
+    <button id="theme" type="button" aria-label="تبديل الوضع">◐</button>
+  </div>
+<nav class="nav" aria-label="الأقسام"><a href="#sv">الخدمات</a><a href="#sch">الجدول</a><a href="#tk">المهام</a><a href="#gp">المعدل</a><a href="#ab">الغياب</a><a href="#pm">المذاكرة</a></nav>
+</header>
+
+<main>
+<section class="stats" aria-label="ملخص اليوم"><div class="stat"><b id="s1">0</b><span>محاضرات اليوم</span></div><div class="stat"><b id="s2">0</b><span>مهام مفتوحة</span></div><div class="stat"><b id="s3">-</b><span>أقرب موعد</span></div></section>
+<p class="nextp" id="nextp"></p>
+<section class="pray" id="pray" aria-label="مواقيت الصلاة"></section>
+<h2 id="sv">خدمات الجامعة</h2>
+<ul class="grid" id="services"></ul>
+<p class="empty" id="none">لا توجد خدمة بهذا الاسم. جرّب كلمة أقصر.</p>
+
+<h2 id="tk">مهامي ومواعيدي</h2>
+<section class="tasks" aria-label="مهامي ومواعيدي">
+  <div class="add tadd">
+    <input id="tt" placeholder="مثال: تسليم بحث أصول الفقه" aria-label="المهمة">
+    <div class="dtg" role="group" aria-label="الموعد"><select id="dsy" aria-label="السنة"></select><select id="dsm" aria-label="الشهر"></select><select id="dsd" aria-label="اليوم"></select><input id="td" type="hidden"></div>
+    <button id="ta" type="button">أضف مهمة</button>
+  </div>
+  <ul id="list"></ul>
+  <p class="empty" id="e2" style="display:block">لا مهام بعد. أضف أول موعد لك.</p>
+</section>
+<h2 id="sch">جدولي صورةً للجوال وللطباعة</h2>
+<section class="tasks" aria-label="تحويل الجدول إلى صورة">
+  <p class="empty" style="display:block;margin-top:0">ارفع جدولك (PDF أو صورة) فأجهّزه لك بصورتين: طولية للجوال، وأفقية A4 للطباعة والتعليق على الجدار. تتم المعالجة في جهازك، ولا يُرسل الملف إلى أي مكان.</p>
+  <div class="up">
+    <input class="f" id="sf" type="file" accept=".pdf,application/pdf,image/*" aria-label="ملف الجدول">
+    <input id="stt" type="text" placeholder="عنوان فوق الجدول (اختياري)" aria-label="العنوان">
+    <input id="spg" type="number" min="1" value="1" aria-label="رقم الصفحة في الملف" title="رقم الصفحة">
+  </div>
+  <label class="chk"><input type="checkbox" id="strim" checked> قصّ الهوامش البيضاء</label>
+  <label class="chk"><input type="checkbox" id="srot"> تدوير الجدول في صورة الجوال ليملأ الشاشة الطويلة</label>
+  <p class="empty" id="smsg" style="display:block"></p>
+  <div class="outs">
+    <figure><figcaption>للجوال (طولية)</figcaption><img id="im" alt="صورة الجدول للجوال" hidden><button class="gbtn" id="dm" type="button" disabled>تنزيل صورة الجوال</button></figure>
+    <figure><figcaption>للطباعة (أفقية A4)</figcaption><img id="ip" alt="صورة الجدول للطباعة" hidden><button class="gbtn" id="dp" type="button" disabled>تنزيل صورة الطباعة</button></figure>
+  </div>
+</section>
+<h2>محاضرات اليوم والأسبوع</h2>
+<section class="tasks" aria-label="جدول المحاضرات">
+  <div class="add a4"><select id="ld" aria-label="اليوم"></select><input id="lt" type="time" aria-label="الوقت"><input id="ln" placeholder="اسم المقرر" aria-label="المقرر"><button id="la" type="button">أضف محاضرة</button></div>
+  <ul class="lst" id="ll"></ul>
+  <p class="empty" id="le" style="display:block">لا محاضرات بعد. أضف مقرراتك فتظهر محاضرات اليوم أولًا.</p>
+</section>
+<h2 id="gp">حاسبة المعدل</h2>
+<section class="tasks" aria-label="حاسبة المعدل">
+  <div id="gr"></div>
+  <button class="gbtn" id="ga" type="button">أضف مقررًا</button>
+  <p class="gpa-out" id="go"></p>
+  <p class="empty" style="display:block">السلّم من 5. راجع لائحة جامعتك فقد يختلف.</p>
+</section>
+<h2>ملاحظات سريعة</h2>
+<section class="tasks"><textarea id="nt" rows="5" placeholder="اكتب ما تريد حفظه" aria-label="ملاحظات"></textarea></section>
+<h2 id="ab">متابعة الغياب</h2>
+<section class="tasks" aria-label="متابعة الغياب">
+  <div class="add"><input id="an" placeholder="اسم المقرر" aria-label="المقرر"><input id="am" type="number" min="1" placeholder="الحد الأقصى للغياب" aria-label="الحد الأقصى للغياب"><button id="aa" type="button">أضف مقررًا</button></div>
+  <ul class="lst" id="al"></ul>
+  <p class="empty" id="ae" style="display:block">لا مقررات بعد. أضف المقرر وحدّ غيابه المسموح من لائحة جامعتك.</p>
+</section>
+<h2 id="pm">مؤقت المذاكرة</h2>
+<section class="tasks" aria-label="مؤقت المذاكرة">
+  <div class="clock" id="pt" style="font-size:56px">25:00</div>
+  <div class="pbtns"><input class="gbtn" id="pmin" type="number" min="1" max="600" inputmode="numeric" placeholder="دقائق" aria-label="مدة المذاكرة بالدقائق"><button class="gbtn" id="pset" type="button">اضبط المدة</button><button class="gbtn" id="pg" type="button">ابدأ</button><button class="gbtn" id="p25" type="button">25 دقيقة</button><button class="gbtn" id="p50" type="button">50 دقيقة</button><button class="gbtn" id="p5" type="button">استراحة 5</button></div>
+</section>
+<h2>نسخة احتياطية</h2>
+<section class="tasks" aria-label="نسخة احتياطية">
+  <p class="empty" style="display:block;margin-top:0">بياناتك محفوظة في هذا المتصفح. انسخها هنا لتنقلها إلى جهاز آخر.</p>
+  <textarea id="bt" rows="3" aria-label="نص النسخة"></textarea>
+  <div class="pbtns"><button class="gbtn" id="bx" type="button">تجهيز نسخة</button><button class="gbtn" id="bi" type="button">استعادة من النص</button></div>
+  <p class="empty" id="bm" style="display:block"></p>
+</section>
+</main>
+
+<footer><div class="sig"><span>موقع شخصي</span><span class="by">برمجة <b>عابد حسن</b></span></div><p>غير تابع رسميًا للجامعة. بياناتك تبقى في متصفحك، ولا يحفظ الموقع رقمك الجامعي ولا كلمة السر. المواقيت تقريبية.</p></footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script>
+var S=[
+{n:"البلاك بورد",d:"المقررات والمحاضرات والواجبات",u:"https://lms.imamu.edu.sa/webapps/login/",m:1},
+{n:"الخدمات الطلابية",d:"التسجيل والجدول والسجل الأكاديمي",u:"https://bstss.imamu.edu.sa/StudentSelfService/ssb/studentCommonDashboard",m:1},
+{n:"الإرشاد الأكاديمي",d:"التواصل مع المرشد ومتابعة الخطة",u:"https://academicadvising.imamu.edu.sa/"},
+{n:"السجل المهاري",d:"مهاراتك وأنشطتك الموثقة",u:"https://academicadvising.imamu.edu.sa/skillrecord/Home/Login"},
+{n:"نظام التدريب الميداني",d:"التدريب وجهاته ومتابعته",u:"https://fieldtraining.imamu.edu.sa/Home/Login"},
+{n:"نظام تواصل",d:"الطلبات والاستفسارات",u:"https://crm.imamu.edu.sa/"},
+{n:"نظام حقوقي",d:"الخدمات والحقوق الطلابية",u:"https://es.imamu.edu.sa/Huquqi/Login"},
+{n:"بوابة الخريجين",d:"خدمات الخريجين",u:"https://students.imamu.edu.sa/"}];
+var g=document.getElementById("services");
+function draw(f){g.innerHTML="";var c=0;S.forEach(function(s){if(f&&(s.n+s.d).indexOf(f)<0)return;c++;
+var li=document.createElement("li"),a=document.createElement("a");a.className="card"+(s.m?" main":"");a.href=s.u;a.target="_blank";a.rel="noopener noreferrer";
+a.innerHTML="<b></b><span></span>";a.firstChild.textContent=s.n;a.lastChild.textContent=s.d;li.appendChild(a);g.appendChild(li)});
+document.getElementById("none").style.display=c?"none":"block"}
+draw("");
+document.getElementById("q").addEventListener("input",function(e){draw(e.target.value.trim())});
+
+
+var T=[];
+try{T=JSON.parse(localStorage.getItem("hub_tasks")||"[]")}catch(e){T=[]}
+function save(){try{localStorage.setItem("hub_tasks",JSON.stringify(T))}catch(e){}}
+function left(d){if(!d)return"";var a=new Date();a.setHours(0,0,0,0);var n=Math.round((new Date(d+"T00:00:00")-a)/864e5);
+return n<0?"فات منذ "+(-n)+" يوم":n===0?"اليوم":n===1?"غدًا":"بعد "+n+" أيام"}
+function show(){var l=document.getElementById("list");l.innerHTML="";
+T.sort(function(a,b){return (a.done-b.done)||((a.d||"9")>(b.d||"9")?1:-1)});
+T.forEach(function(t,i){var li=document.createElement("li");if(t.done)li.className="done";
+li.innerHTML='<input type="checkbox"><span class="t"></span><span class="when"></span><button class="x" type="button" aria-label="حذف">×</button>';
+var c=li.children;c[0].checked=!!t.done;c[1].textContent=t.t;c[2].textContent=t.done?"":left(t.d);
+c[0].onchange=function(){t.done=c[0].checked;save();show()};c[3].onclick=function(){T.splice(i,1);save();show()};l.appendChild(li)});
+document.getElementById("e2").style.display=T.length?"none":"block"}
+var DSY=document.getElementById("dsy"),DSM=document.getElementById("dsm"),DSD=document.getElementById("dsd");
+function syncD(){var y=DSY.value,m=DSM.value,d=DSD.value;document.getElementById("td").value=(y&&m&&d)?y+"-"+("0"+m).slice(-2)+"-"+("0"+d).slice(-2):""}
+function rstD(){DSY.value=DSM.value=DSD.value="";syncD()}
+(function(){var y0=new Date().getFullYear(),i,h='<option value="">السنة</option>';for(i=0;i<4;i++)h+='<option>'+(y0+i)+'</option>';DSY.innerHTML=h;
+h='<option value="">الشهر</option>';var f=new Intl.DateTimeFormat("ar-u-ca-gregory-nu-latn",{month:"long"});for(i=0;i<12;i++)h+='<option value="'+(i+1)+'">'+f.format(new Date(2000,i,1))+'</option>';DSM.innerHTML=h;
+h='<option value="">اليوم</option>';for(i=1;i<=31;i++)h+='<option>'+i+'</option>';DSD.innerHTML=h;
+[DSY,DSM,DSD].forEach(function(s){s.onchange=syncD})})();
+document.getElementById("ta").onclick=function(){var v=document.getElementById("tt"),d=document.getElementById("td");
+if(!v.value.trim()){v.focus();return}T.push({t:v.value.trim(),d:d.value,done:false});v.value="";d.value="";rstD();save();show()};
+document.getElementById("tt").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("ta").click()});
+show();
+
+var $=function(i){return document.getElementById(i)};
+function ld(k,d){try{return JSON.parse(localStorage.getItem(k)||"null")||d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var NL="ar-SA-u-nu-latn",DAYS=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+
+function tm(d,s,z){var o={hour:s?"2-digit":"numeric",minute:"2-digit",hour12:true},n="",a="",c=/[\s\u200e\u200f\u061c\u202f]/g;if(s)o.second="2-digit";if(z)o.timeZone=z;
+new Intl.DateTimeFormat(NL,o).formatToParts(d).forEach(function(p){if(p.type==="dayPeriod")a=p.value.replace(c,"");else n+=p.value});
+return '<span class="tn">'+n.replace(c,"")+'</span><span class="ap">'+a+'</span>'}
+function stats(){var td=new Date().getDay(),o=T.filter(function(t){return !t.done}),nx=o.filter(function(t){return t.d}).sort(function(a,b){return a.d>b.d?1:-1})[0];
+$("s1").textContent=LC.filter(function(c){return c.d===td}).length;$("s2").textContent=o.length;$("s3").textContent=nx?left(nx.d):"لا يوجد"}
+$("ld").innerHTML=DAYS.map(function(d,i){return '<option value="'+i+'">'+d+'</option>'}).join("");
+var LC=ld("hub_lec",[]);
+function showL(){var l=$("ll"),td=new Date().getDay();l.innerHTML="";
+LC.sort(function(a,b){return ((a.d-td+7)%7-(b.d-td+7)%7)||((a.t||"")>(b.t||"")?1:-1)});
+LC.forEach(function(c,i){var li=document.createElement("li");if(c.d===td)li.className="today";
+li.innerHTML='<span class="t"></span><span class="when"></span><button class="x" type="button" aria-label="حذف">×</button>';
+var k=li.children;k[0].textContent=c.n;k[1].innerHTML=(c.d===td?"اليوم":DAYS[c.d])+(c.t?" "+tm(new Date(2000,0,1,+c.t.slice(0,2),+c.t.slice(3,5))):"");
+k[2].onclick=function(){LC.splice(i,1);sv("hub_lec",LC);showL()};l.appendChild(li)});
+$("le").style.display=LC.length?"none":"block"}
+$("la").onclick=function(){var n=$("ln");if(!n.value.trim()){n.focus();return}
+LC.push({d:+$("ld").value,t:$("lt").value,n:n.value.trim()});n.value="";sv("hub_lec",LC);showL()};
+
+var GR=[["أ+ 5.00",5],["أ 4.75",4.75],["ب+ 4.50",4.5],["ب 4.00",4],["ج+ 3.50",3.5],["ج 3.00",3],["د+ 2.50",2.5],["د 2.00",2],["هـ 1.00",1]];
+var GP=ld("hub_gpa",[{h:3,g:0}]);
+function calcG(){var s=0,h=0;GP.forEach(function(r){if(r.h>0){s+=r.h*GR[r.g][1];h+=r.h}});
+$("go").textContent=h?"المعدل "+(s/h).toFixed(2)+" من 5 في "+h+" ساعة":"أدخل ساعات المقرر وتقديره"}
+function showG(){var box=$("gr");box.innerHTML="";GP.forEach(function(r,i){var d=document.createElement("div");d.className="gr";
+d.innerHTML='<input type="number" min="1" max="12" placeholder="الساعات" aria-label="الساعات"><select aria-label="التقدير">'+GR.map(function(x,k){return '<option value="'+k+'">'+x[0]+'</option>'}).join("")+'</select><button class="x" type="button" aria-label="حذف">×</button>';
+var k=d.children;k[0].value=r.h;k[1].value=r.g;
+k[0].oninput=function(){r.h=+k[0].value;sv("hub_gpa",GP);calcG()};
+k[1].onchange=function(){r.g=+k[1].value;sv("hub_gpa",GP);calcG()};
+k[2].onclick=function(){GP.splice(i,1);sv("hub_gpa",GP);showG()};box.appendChild(d)});calcG()}
+$("ga").onclick=function(){GP.push({h:3,g:0});sv("hub_gpa",GP);showG()};
+showG();
+
+$("nt").value=ld("hub_note","");
+$("nt").oninput=function(){sv("hub_note",this.value)};
+
+function calc(y,m,d){var R=Math.PI/180,lat=24.7136,lng=46.6753;
+var jd=Date.UTC(y,m,d,9)/864e5+2440587.5-2451545,g=(357.529+.98560028*jd)*R,q=(((280.459+.98564736*jd)%360)+360)%360;
+var L=(q+1.915*Math.sin(g)+.02*Math.sin(2*g))*R,e=(23.439-4e-7*jd)*R;
+var ra=(Math.atan2(Math.cos(e)*Math.sin(L),Math.cos(L))/R/15+24)%24,dc=Math.asin(Math.sin(e)*Math.sin(L));
+var eq=q/15-ra;eq-=24*Math.round(eq/24);
+var noon=15-lng/15-eq;
+function H(a){return Math.acos((Math.sin(a*R)-Math.sin(lat*R)*Math.sin(dc))/(Math.cos(lat*R)*Math.cos(dc)))/R/15}
+var asrAlt=Math.atan(1/(1+Math.tan(Math.abs(lat*R-dc))))/R,mg=noon+H(-.833);
+var t=[["الفجر",noon-H(-18.5)],["الشروق",noon-H(-.833)],["الظهر",noon],["العصر",noon+H(asrAlt)],["المغرب",mg],["العشاء",mg+1.5]];
+return t.map(function(x){return [x[0],new Date(Date.UTC(y,m,d)+(x[1]-3)*36e5)]})}
+var PK="";
+function pray(n){var r=new Date(n.getTime()+108e5),y=r.getUTCFullYear(),m=r.getUTCMonth(),d=r.getUTCDate(),a=calc(y,m,d),i=-1;
+for(var k=0;k<6;k++){if(k!==1&&a[k][1]>n){i=k;break}}
+var key=y+"-"+m+"-"+d+"-"+i;
+if(key!==PK){PK=key;$("pray").innerHTML=a.map(function(x,k){return '<div'+(k===i?' class="next"':'')+'><b>'+x[0]+'</b><span>'+tm(x[1],0,"Asia/Riyadh")+'</span></div>'}).join("")}
+var t=i<0?calc(y,m,d+1)[0][1]:a[i][1],nm=i<0?"الفجر":a[i][0],s=Math.max(0,Math.floor((t-n)/1000)),h=Math.floor(s/3600),mi=Math.floor(s%3600/60);
+$("nextp").textContent="المتبقي لصلاة "+nm+": "+(h?h+" ساعة و ":"")+mi+" دقيقة"}
+
+var DY=-1;
+function tick(){var n=new Date();
+$("clock").innerHTML=tm(n,1);
+try{$("date").textContent=n.toLocaleDateString("ar-SA-u-ca-islamic-umalqura-nu-latn",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+$("gdate").textContent=n.toLocaleDateString("ar-SA-u-ca-gregory-nu-latn",{day:"numeric",month:"long",year:"numeric"});
+$("riy").innerHTML="بتوقيت الرياض "+tm(n,0,"Asia/Riyadh");
+pray(n)}catch(e){}
+var hr=+new Intl.DateTimeFormat("en-GB",{hour:"numeric",hour12:false,timeZone:"Asia/Riyadh"}).format(n)%24;
+$("greet").textContent=hr<5?"طاب ليلك":hr<12?"صباح الخير":hr<17?"طاب يومك":hr<20?"مساء الخير":"طاب مساؤك";stats();
+if(n.getDay()!==DY){DY=n.getDay();showL();show()}}
+tick();setInterval(tick,1000);
+
+var SRC=null,PD=null,DL=null,MC=null,PC=null;
+function msg(t){$('smsg').textContent=t}
+function fixB(){var ok=!!DL&&!!MC;$('dm').disabled=$('dp').disabled=!ok}
+try{if(window.claude&&window.claude.use)window.claude.use('downloads').then(function(d){DL=d;fixB()}).catch(function(){})}catch(e){}
+function trim(c){var x=c.getContext('2d'),w=c.width,h=c.height,d=x.getImageData(0,0,w,h).data,x0=w,y0=h,x1=0,y1=0;
+for(var y=0;y<h;y+=2){for(var i=0;i<w;i+=2){var p=(y*w+i)*4;if(d[p+3]>20&&(d[p]<240||d[p+1]<240||d[p+2]<240)){if(i<x0)x0=i;if(i>x1)x1=i;if(y<y0)y0=y;if(y>y1)y1=y}}}
+if(x1<=x0||y1<=y0)return c;var q=30;x0=Math.max(0,x0-q);y0=Math.max(0,y0-q);x1=Math.min(w,x1+q);y1=Math.min(h,y1+q);
+var o=document.createElement('canvas');o.width=x1-x0;o.height=y1-y0;o.getContext('2d').drawImage(c,x0,y0,o.width,o.height,0,0,o.width,o.height);return o}
+function comp(s,W,H,title,rot,top){var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,W,H);
+var m=Math.round(W*.04),ty=m;
+if(title){x.fillStyle='#0e4a45';x.font='700 '+Math.round(W*(top?.05:.022))+'px Tajawal,sans-serif';x.textAlign='center';x.textBaseline='top';x.fillText(title,W/2,m);ty=m+Math.round(W*(top?.09:.04))}
+var sw=rot?s.height:s.width,sh=rot?s.width:s.height,aw=W-2*m,ah=H-ty-m,k=Math.min(aw/sw,ah/sh),dw=sw*k,dh=sh*k,dx=(W-dw)/2,dy=top?ty:ty+(ah-dh)/2;
+x.imageSmoothingQuality='high';
+if(rot){x.save();x.translate(dx+dw,dy);x.rotate(Math.PI/2);x.drawImage(s,0,0,s.width*k,s.height*k);x.restore()}else{x.drawImage(s,dx,dy,dw,dh)}
+return c}
+function build(){if(!SRC)return;var s=SRC;if($('strim').checked)s=trim(s);var t=$('stt').value.trim();
+MC=comp(s,1170,2532,t,$('srot').checked,true);PC=comp(s,3508,2480,t,false,false);
+$('im').src=MC.toDataURL('image/png');$('ip').src=PC.toDataURL('image/png');$('im').hidden=false;$('ip').hidden=false;
+msg('الصورتان جاهزتان. اضغط تنزيل، أو اضغط مطولًا على الصورة لحفظها.');fixB()}
+function renderP(){if(!PD)return;var n=Math.min(Math.max(1,+$('spg').value||1),PD.numPages);msg('جارٍ تجهيز الصفحة…');
+PD.getPage(n).then(function(p){var v=p.getViewport({scale:1}),sc=3400/Math.max(v.width,v.height),vp=p.getViewport({scale:sc}),c=document.createElement('canvas');c.width=Math.ceil(vp.width);c.height=Math.ceil(vp.height);
+var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);
+return p.render({canvasContext:x,viewport:vp}).promise.then(function(){SRC=c;build()})}).catch(function(e){msg('تعذّر عرض هذه الصفحة. جرّب ملفًا آخر. '+(e&&e.message?'('+e.message+')':''))})}
+$('sf').onchange=function(){var f=this.files[0];if(!f)return;msg('جارٍ قراءة الملف…');
+if(f.type.indexOf('image/')===0){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0);PD=null;SRC=c;build()};im.src=r.result};r.readAsDataURL(f);return}
+if(!window.pdfjsLib){msg('تعذّر تحميل قارئ الـPDF. تأكد من الاتصال وأعد المحاولة.');return}
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+f.arrayBuffer().then(function(b){return pdfjsLib.getDocument({data:b}).promise}).then(function(d){PD=d;$('spg').max=d.numPages;$('spg').value=1;renderP()}).catch(function(e){msg('تعذّرت قراءة الملف. جرّب ملفًا آخر. '+(e&&e.message?'('+e.message+')':''))})};
+$('spg').onchange=renderP;$('strim').onchange=build;$('srot').onchange=build;$('stt').onchange=build;
+function dl(c,name){if(!DL||!c)return;c.toBlob(function(b){DL.save({filename:name,data:b}).catch(function(e){if(!e||e.code!=='declined')msg('تعذّر الحفظ. اضغط مطولًا على الصورة لحفظها.')})},'image/png')}
+$('dm').onclick=function(){dl(MC,'schedule-mobile.png')};
+$('dp').onclick=function(){dl(PC,'schedule-print-A4.png')};
+
+var AB=ld('hub_abs',[]);
+function showA(){var l=$('al');l.innerHTML='';AB.forEach(function(c,i){var li=document.createElement('li');
+li.innerHTML='<span class="t"></span><span class="when"></span><button class="x" type="button" aria-label="زيادة">+</button><button class="x" type="button" aria-label="نقصان">−</button><button class="x" type="button" aria-label="حذف">×</button>';
+var k=li.children;k[0].textContent=c.n;k[1].textContent=c.a+' من '+c.m+' غيابات';if(c.a>=c.m){k[1].style.color='var(--bad)'}
+k[2].onclick=function(){c.a++;sv('hub_abs',AB);showA()};k[3].onclick=function(){c.a=Math.max(0,c.a-1);sv('hub_abs',AB);showA()};k[4].onclick=function(){AB.splice(i,1);sv('hub_abs',AB);showA()};l.appendChild(li)});
+$('ae').style.display=AB.length?'none':'block'}
+$('aa').onclick=function(){var n=$('an'),m=$('am');if(!n.value.trim()){n.focus();return}if(!(+m.value>0)){m.focus();return}
+AB.push({n:n.value.trim(),a:0,m:+m.value});n.value='';m.value='';sv('hub_abs',AB);showA()};
+showA();
+
+var PL=1500,PE=0,PR=null;
+function pd(){var m=Math.floor(PL/60),s=PL%60;$('pt').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s}
+function beep(){try{var a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator();o.connect(a.destination);o.start();setTimeout(function(){o.stop()},700)}catch(e){}}
+function pset(min){clearInterval(PR);PR=null;PL=min*60;pd();$('pg').textContent='ابدأ'}
+$('pg').onclick=function(){if(PR){clearInterval(PR);PR=null;this.textContent='تابع';return}
+this.textContent='إيقاف مؤقت';PE=Date.now()+PL*1000;
+PR=setInterval(function(){PL=Math.max(0,Math.round((PE-Date.now())/1000));pd();if(PL<=0){clearInterval(PR);PR=null;$('pg').textContent='ابدأ';beep()}},500)};
+function psc(){var v=Math.floor(+$('pmin').value);if(!(v>0&&v<=600)){$('pmin').focus();return}pset(v)}
+$('pset').onclick=psc;$('pmin').onkeydown=function(e){if(e.key==='Enter')psc()};
+$('p25').onclick=function(){pset(25)};$('p50').onclick=function(){pset(50)};$('p5').onclick=function(){pset(5)};
+
+var BK=['hub_tasks','hub_lec','hub_gpa','hub_note','hub_abs'];
+$('bx').onclick=function(){var o={};BK.forEach(function(k){o[k]=ld(k,null)});var s=JSON.stringify(o);$('bt').value=s;
+try{var p=navigator.clipboard&&navigator.clipboard.writeText(s);if(p&&p.catch)p.catch(function(){})}catch(e){}
+$('bm').textContent='جهّزتُ بياناتك في المربع. انسخها واحتفظ بها.'};
+$('bi').onclick=function(){try{var o=JSON.parse($('bt').value);BK.forEach(function(k){if(o[k]!=null)sv(k,o[k])});location.reload()}catch(e){$('bm').textContent='النص غير صالح. الصق النسخة كاملة.'}};
+
+document.getElementById("theme").onclick=function(){var r=document.documentElement;
+var dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;r.dataset.theme=dark?"light":"dark"};
+</script>
+</body>
+</html>
